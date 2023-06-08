@@ -25,15 +25,16 @@ Constraints:
  */
 
 const isAnagram = (s, t) => {
-  const sortedS = s.split("").sort();
-  const sortedT = t.split("").sort();
-  if (sortedS.length === sortedT.length) {
-    for (let i = 0; i < sortedS.length; i++) {
-      if (sortedS[i] !== sortedT[i]) return false;
+    const sortedS = s.split('').sort();
+    const sortedT = t.split('').sort();
+    if (sortedS.length === 0 || sortedT.length === 0) return true;
+    if (sortedS.length === sortedT.length) {
+        for (let i = 0; i < sortedS.length; i++) {
+            if (sortedS[i] !== sortedT[i]) return false;
+        }
+        return true;
     }
-    return true;
-  }
-  return false;
+    return false;
 };
 
 /**
@@ -41,18 +42,15 @@ const isAnagram = (s, t) => {
  * @return {string[][]}
  */
 var groupAnagrams = function (strs) {
-  if (strs.length === 1) return [strs];
-  let returnedArray = [];
-  for (let i = 0; i < strs.length; i++) {
-    let newSet = [strs[i]];
-    for (let j = i; j < strs.length; j++) {
-        if (j !== i && isAnagram(strs[i], strs[j]))
-            newSet.push(strs[j]);
+    let anagrams = new Map();
+
+    for (let i = 0; i < strs.length; i++) {
+        const letters = strs[i].split('').sort().toString();
+        if (anagrams.has(letters))
+            anagrams.set(letters, anagrams.get(letters).concat([strs[i]]));
+        else anagrams.set(letters, [strs[i]]);
     }
-    returnedArray.push(newSet);
-  }
-  return returnedArray;
+    return [...anagrams.values()];
 };
 
-
-console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]));
+console.log(groupAnagrams(['a', 'b', '']));
