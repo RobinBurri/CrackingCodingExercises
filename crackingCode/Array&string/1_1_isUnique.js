@@ -1,6 +1,8 @@
 /**
  * Is Unique: Implement an algorithm to determine if a string has all unique characters.
+ * ! use Set()
  * What if you cannot use additional data structures?
+ * ! see isUnique()
  */
 
 // The easyest way would be to use a set and compare the length of the set vs the string.
@@ -16,7 +18,13 @@ const isUnique = (params) => {
     return true
 }
 
-console.log(isUnique('hello'))
-console.log(isUnique('unique'))
-console.log(isUnique('true'))
-console.log(isUnique('asdfjkl;'))
+const isUniqueBySet = (params) => {
+    const paramsOrdered = new Set(params)
+    if (paramsOrdered.size !== params.length) return false
+    return true
+}
+
+console.log(isUniqueBySet('hello'))
+console.log(isUniqueBySet('unique'))
+console.log(isUniqueBySet('true'))
+console.log(isUniqueBySet('asdfjkl;'))
