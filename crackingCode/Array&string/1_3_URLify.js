@@ -16,16 +16,14 @@ const urlify = (str) => {
     let j = 0
     for (let i = 0; i < strArr.length; i++) {
         if (strArr[i] === ' ') {
-            newStr[j] = '%'
-            newStr[j + 1] = '2'
-            newStr[j + 2] = '0'
+            newStr[j] = '%20'
             j += 3
         } else {
             newStr[j] = strArr[i]
             j++
         }
     }
-    return newStr.join("")
+    return newStr.join('')
 }
 
 console.log(urlify(mystr))
