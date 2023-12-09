@@ -1,11 +1,11 @@
-class Node {
+export class Node {
     constructor(data = 0) {
         this.next = null;
         this.data = data;
     }
 }
 
-class SingleLL {
+export class SingleLL {
     constructor() {
         this.head = null;
     }
@@ -38,28 +38,32 @@ class SingleLL {
         let tmp = this.head;
         set.add(tmp.data);
         while (tmp.next) {
-            if (set.has(tmp.next.data)) {
-                if (tmp.next.next) tmp.next = tmp.next.next;
-                else tmp.next = null;
-            } else {
+            if (!set.has(tmp.next.data)) {
                 set.add(tmp.next.data);
-                tmp = tmp.next;
             }
+            tmp = tmp.next;
         }
+
+        this.head = null;
+        for (let val of set) {
+            this.addToTail(new Node(val));
+        }
+
+     
     }
 
     findKthToLast(th) {
         if (!this.head || th < 0) return;
-        const length = this.llength()
+        const length = this.llength();
         if (length < th) return;
-        let diff = length - th -1;
-        if (diff === 0) return this.head.data
-        let tmp  = this.head;
+        let diff = length - th - 1;
+        if (diff === 0) return this.head.data;
+        let tmp = this.head;
         while (diff > 0) {
-            tmp = tmp.next
-            diff--
+            tmp = tmp.next;
+            diff--;
         }
-        return tmp.data
+        return tmp.data;
     }
 
     llength() {
@@ -75,18 +79,3 @@ class SingleLL {
 
     addAtStart() {}
 }
-
-const mysll = new SingleLL();
-
-mysll.addToTail(new Node(1));
-mysll.addToTail(new Node(2));
-mysll.addToTail(new Node(3));
-mysll.addToTail(new Node(4));
-mysll.addToTail(new Node(5));
-
-
-// console.log(mysll.llength());
-// mysll.printNodes();
-
-
-console.log(mysll.findKthToLast(2));
